@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>File->Share</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #progressContainer {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            display: none; /* Скрыть прогресс-бар по умолчанию */
+        }
+
+        #progressBar {
+            height: 20px;
+            background-color: lightseagreen;
+            width: 0%; /* Начальная ширина прогресс-бара */
+        }
+
+        #status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><h1>File Share </h1></td>
+            <td><div id="version"></div></td>
+        </tr>
+    </table>
+    <div class="container">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div>
+                <label for="fileInput">Choose file:</label>
+                <input type="file" id="fileInput" name="file" required />
+                <div id="fileName"></div>
+                <div id="fileSize"></div>
+            </div>
+            <div>
+                <span>Duration (minutes):</span>
+                <label>
+                    <input type="radio" name="duration" value="5" checked required /> 5
+                </label>
+                <label>
+                    <input type="radio" name="duration" value="10" required /> 10
+                </label>
+                <label>
+                    <input type="radio" name="duration" value="15" required /> 15
+                </label>
+                <label>
+                    <input type="radio" name="duration" value="20" required /> 20
+                </label>
+            </div>
+            <div>
+                <button id="submitBtn" type="submit">Create File Link</button>
+            </div>
+            <br />
+            <div id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
+        </form>
+        <div id="status"></div>
+        <div id="message"></div>
+        <div id="url"></div>
+        <button id="copyUrl">Copy Link</button>
+        <div id="qrCode"></div>
+    </div>
+
+    <script>
+        // jQuery
+        $(document).ready(function () {            
+
+            // Reset form function
+            function resetForm() {
+                $('#fileName').text('File name:');
+                $('#fileSize').text('File size: 0 MB (max 0 MB)');
+                $('#submitBtn').hide();
+                $('#progressContainer').hide();
+                $('#status').text(null);
+                $('#message').text(null);
+                $('#url').hide();
+                $('#url').text(null);
+                $('#copyUrl').hide();
+                $('#qrCode').text(null);
+            }
+
+            $('#fileInput').val(null); // reset selected file
+            resetForm();
+
+            let maxFileSizeMB = 0;
+            // Set image tag (app version)
+            $.get('/Health/imagetag', function (data) {
+                $('#version').text(data.imageTag);
+            });
+            // Set maximum file size
+            $.get('/Health/maxfilesize', function (data) {
+                maxFileSizeMB = (data.maxFileSize / 1024 / 1024);
+                $('#fileSize').text(`File size: 0 MB (max ${maxFileSizeMB} MB)`);
+            });
+
+            // File selected
+            $('#fileInput').on('change', function(event) {
+
+                resetForm();
+
+                const file = event.target.files[0];
+                if (file) 
+                {
+                    // Set file name
+                    $('#fileName').text(`File name: ${file.name}`)
+
+                    // Get selected file size (without uploading)
+                    const fileSizeInKB = (file.size / 1024).toFixed(2);
+                    const fileSizeInMB = (fileSizeInKB / 1024).toFixed(2);
+                    if (fileSizeInMB > 0)
+                        $('#fileSize').text(`File size: ${fileSizeInMB} MB (max ${maxFileSizeMB} MB)`);
+                    else
+                        $('#fileSize').text(`File size: ${fileSizeInKB} KB (max ${maxFileSizeMB} MB)`);
+
+                    if (maxFileSizeMB == 0 || file.size == 0)
+                        $('#message').text('File is empty');
+                    else
+                    {                        
+                        if (fileSizeInMB <= maxFileSizeMB)
+                            $('#submitBtn').show(); // show Submit button
+                        else
+                            $('#message').text('File is too big');
+                    }
+                } 
+                else
+                {
+                    $('#fileName').text(null);
+                    $('#fileSize').text(`File size: 0 MB (max ${maxFileSizeMB} MB)`);
+                }
+            });
+
+            $('#uploadForm').on('submit', function (e) {
+                e.preventDefault(); // prevent defualt form submit 
+
+                var formData = new FormData(this);
+                var xhr = new XMLHttpRequest(); // AJAX-request
+
+                // Check uploading progress
+                xhr.upload.addEventListener('progress', function (event) {
+                    if (event.lengthComputable) { // is total computable
+                        var percentage = Math.floor((event.loaded / event.total) * 100);
+                        $('#progressContainer').show();
+                        $('#progressBar').css('width', percentage + '%');
+                        $('#status').text('Upload...' + percentage + '%');
+                    }
+                });
+
+                // upload completed
+                xhr.onload = function () {
+                    if (xhr.status === 200)
+                    {
+                        $('#progressContainer').hide();
+                        $('#status').text('Upload completed!');
+                        // get Message, URL, QR-code from the response
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.message)
+                            $('#message').text(response.message);
+                        if (response.url)
+                        {
+                            $('#url').text(response.url);
+                            $('#copyUrl').show();
+                        }
+                        if (response.qrCode)
+                            $('#qrCode').html(response.qrCode);
+                    }
+                    else
+                    {
+                        $('#progressContainer').hide();
+                        $('#status').text('Upload error.');
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.message)
+                            $('#message').text(response.message);
+                    }
+                };
+
+                // open request
+                xhr.open('POST', '/Home/Upload', true);
+                // send form data
+                xhr.send(formData);
+            });
+
+            // copy link url in buffer
+            $('#copyUrl').on('click', function () {
+                const urlText = $('#url').text();
+                if (urlText) {
+                    navigator.clipboard.writeText(urlText).then(function() {
+                        $('#message').text('Link copied to clipboard!');
+                    }, function(err) {
+                        $('#message').text('Failed to copy link: ' + err);
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

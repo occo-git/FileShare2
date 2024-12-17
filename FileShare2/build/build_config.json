@@ -1,0 +1,7 @@
+{
+  "build_docker": {
+    "AWS_ACCOUNT_ID": "116981768164",
+    "AWS_REGION": "eu-north-1",
+    "IMAGE_TAG": "v2.1"
+  }
+}

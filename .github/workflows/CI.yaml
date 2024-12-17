@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+
+  build:
+    uses: ./.github/workflows/build.yaml
+
+  build_docker:
+    needs: build  
+    uses: ./.github/workflows/build_docker.yaml
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
+      # DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      # DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}

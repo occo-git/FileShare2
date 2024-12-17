@@ -1,0 +1,4 @@
+﻿services:
+  fileshare2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

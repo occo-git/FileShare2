@@ -1,0 +1,38 @@
+﻿name: .NET Core Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: windows-latest                         
+    steps:
+    
+    # get code from repo
+    - name: Checkout code                           
+      uses: actions/checkout@v4 
+
+    - name: Setup .NET SDK                       
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'  # .NET SDK version
+    
+    # restore dependencies 
+    - name: Install dependencies                    
+      run: dotnet restore
+
+    # start tests
+    # logging: console, test_results.trx
+    - name: Run tests                               
+      run: dotnet test --logger "console;verbosity=detailed" --logger "trx;LogFileName=test_results.trx"
+
+    # build Release configuration
+    - name: Build project                           
+      run: dotnet build --configuration Release --no-restore
+
+    # upload test_results.trx
+    - name: Upload test results                     
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results  # artifact name
+        path: /home/runner/work/FileShare2/FileShare2/FileShare2/TestResults/test_results.trx  # file path

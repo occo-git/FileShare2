@@ -1,0 +1,14 @@
+﻿services:
+  fileshare2:
+    image: fileshare:v2.11
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"   # HTTP
+      # - "5001:443"  # HTTPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+    # networks:
+    #   - my_custom_network
