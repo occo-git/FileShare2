@@ -7,82 +7,353 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+
+        body {
+            justify-content: center; /* Центрирование по горизонтали */
+            background-color: #002200; /*#DDEEDD;*/
+        }
+
+        .main-table {
+            /* border: 1px solid #333; */
+            width: 100%;
+        }
+
+        td {
+            vertical-align: top;
+            text-align: center;
+            justify-content: center;
+            /* border: 1px solid #DDD; */
+        }
+
+        .main-title {
+            vertical-align: top;
+            color: white;
+            font-family: Calibri;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .main-version {
+            color: white;
+            font-family: Calibri;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .form-table {
+            /* border: 1px solid #333; */
+            width: 100%;
+        }
+
+        .file-input {
+            display: none; /* Скрываем стандартный input */
+        }
+
+        .submit-btn {
+            display: none; /* Скрываем стандартный input */
+        }
+
+        .custom-label {
+            color: white; /* Цвет текста */
+            margin: 16px 0px;
+            padding: 16px 32px; /* Отступы */
+            width: 300px;
+            text-align: center; /* Выравнивание текста */
+            text-decoration: none; /* Убираем подчеркивание */
+            display: inline-block; /* Делает элемент строчным блоком */
+            font-family: Calibri;
+            font-size: 32px; /* Размер шрифта */
+            border: 1px solid white;
+            border-radius: 12px; /* Закругление углов */
+        }
+
+        .custom-button {
+            background: linear-gradient(60deg, #388E3C, #4CAF50);
+            color: white; /* Цвет текста */
+            padding: 16px 32px; /* Отступы */
+            margin: 16px 0px;
+            width: 300px;
+            text-align: center; /* Выравнивание текста */
+            text-decoration: none; /* Убираем подчеркивание */
+            display: inline-block; /* Делает элемент строчным блоком */
+            font-family: Calibri;
+            font-size: 24px; /* Размер шрифта */
+            cursor: pointer; /* Курсор при наведении */
+            /* border: 4px solid #DDEEDD; */
+            border: none;
+            border-radius: 12px; /* Закругление углов */
+            transition: background 5s; /* Плавный переход */
+        }
+
+            .custom-button:hover {
+                background: linear-gradient(60deg, #2E7D32, #388E3C);
+            }
+
+
+        .form-left-td {
+            text-align: right;
+            border-radius: 12px; /* Закругление углов */
+            min-width: 300px;
+            width: 50%;
+        }
+
+        .form-right-td {
+            text-align: left;
+            border-radius: 12px; /* Закругление углов */
+            min-width: 300px;
+            width: 50%;
+        }
+
+        .file-name-td {
+            vertical-align: top;
+            text-align: center;
+            color: white;
+            font-family: Calibri;
+            font-size: 18px;
+            background: #75d079;
+            padding: 4px 4px; /* Отступы */
+            border-radius: 12px; /* Закругление углов */
+            width: 300px;
+        }
+
+        .file-size-td {
+            vertical-align: top;
+            text-align: center;
+            color: white;
+            font-family: Calibri;
+            font-size: 18px;
+            background: #75d079;
+            padding: 4px 4px; /* Отступы */
+            border-radius: 12px; /* Закругление углов */
+            width: 300px;
+        }
+
+        .duration-td {
+            vertical-align: top;
+            text-align: center;
+            color: white;
+            font-family: Calibri;
+            font-size: 18px;
+            background: #75d079;
+            padding: 4px 4px; /* Отступы */
+            border-radius: 12px; /* Закругление углов */
+            width: 300px;
+        }
+
+        .status-td {
+            vertical-align: top;
+            text-align: center;
+            color: white;
+            font-family: Calibri;
+            font-size: 18px;
+            background: #75d079;
+            padding: 4px 4px; /* Отступы */
+            border-radius: 12px; /* Закругление углов */
+            width: 300px;
+        }
+
+        #fileName {
+            color: #4CAF50;
+            font-family: Calibri;
+            font-size: 14px;
+            padding: 10px;
+            text-align: center;
+            max-width: 350px; /* Устанавливаем максимальную ширину */
+            overflow: hidden; /* Скрываем переполнение */
+            white-space: nowrap; /* Запрещаем перенос строк */
+            text-overflow: ellipsis; /* Добавляем многоточие */
+        }
+
+        #fileSize {
+            color: #4CAF50;
+            font-family: Calibri;
+            font-size: 14px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .file-duration-min {
+            color: #4CAF50;
+            font-family: Calibri;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        input[type="radio"] {
+            appearance: none; /* Убираем стандартный стиль */
+            width: 20px; /* Ширина */
+            height: 20px; /* Высота */
+            border: 2px solid #4CAF50; /* Цвет границы */
+            border-radius: 50%; /* Круглая форма */
+            outline: none; /* Убираем обводку */
+            cursor: pointer; /* Курсор при наведении */
+            position: relative; /* Для позиционирования псевдоэлемента */
+            transition: border-color 5s; /* Плавный переход для цвета границы */
+        }
+
+            input[type="radio"]:checked {
+                accent-color: #4CAF50; /* Цвет для выбранной радиокнопки */
+                background-color: #4CAF50; /* Цвет при выборе */
+                border: 2px solid #4CAF50; /* Цвет границы при выборе */
+            }
+
+                input[type="radio"]:checked::after {
+                    content: ''; /* Псевдоэлемент для внутреннего круга */
+                    width: 12px; /* Ширина внутреннего круга */
+                    height: 12px; /* Высота внутреннего круга */
+                    background-color: white; /* Цвет внутреннего круга */
+                    border-radius: 50%; /* Круглая форма */
+                    position: absolute; /* Позиционирование относительно радио-кнопки */
+                    top: 50%; /* Центрируем по вертикали */
+                    left: 50%; /* Центрируем по горизонтали */
+                    transform: translate(-50%, -50%); /* Центрируем */
+                }
+
         #progressContainer {
             width: 100%;
-            background-color: #f3f3f3;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin: 4px 0px;
+            background-color: white;
+            border-radius: 12px;
             overflow: hidden;
             display: none; /* Скрыть прогресс-бар по умолчанию */
         }
 
         #progressBar {
-            height: 20px;
-            background-color: lightseagreen;
+            height: 24px;
+            background-color: #4CAF50;
             width: 0%; /* Начальная ширина прогресс-бара */
         }
 
         #status {
             margin-top: 10px;
         }
+
+        #message {
+            color: #4CAF50;
+            font-family: Calibri;
+            font-size: 14px;
+            padding: 10px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-    <table>
+    <table class="main-table">
         <tr>
-            <td style="padding: 10px;"><h1>Share File</h1></td>
-            <td><div id="version"></div></td>
+        </tr>
+        <tr>
+            <td style="width:50%" />
+            <td>
+                <label class="main-title">Share&nbsp;File</label>
+            </td>
+            <td style="width:50%">
+                <div class="main-version" id="version"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div class="container">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <table class="form-table">
+                            <tr>
+                                <td style="width:50%" />
+                                <td>
+                                    <table class="form-table">
+                                        <tr>
+                                            <td>
+                                                <label class="custom-label" id="fileTitle">File</label>
+                                            </td>
+                                            <td>
+                                                <label class="custom-label" id="linkTitle">Link</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="file-name-td">Name</td>
+                                            <td class="duration-td">Duration</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div id="fileName"></div></td>
+                                            <td>
+                                                <table class="form-table">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="duration" id="duration10" value="10" required />
+                                                            <label for="duration10" class="file-duration-min">10min</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" name="duration" id="duration20" value="20" required />
+                                                            <label for="duration20" class="file-duration-min">20min</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" name="duration" id="duration30" value="30" required />
+                                                            <label for="duration30" class="file-duration-min">30min</label>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" name="duration" id="duration60" value="60" required />
+                                                            <label for="duration60" class="file-duration-min">1hour</label>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="file-size-td">Size</td>
+                                            <td class="status-td" id="status"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div id="fileSize"></div></td>
+                                            <td>
+                                                <div id="progressContainer">
+                                                    <div id="progressBar"></div>
+                                                </div>
+                                                <div id="message"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="fileInputDiv">
+                                                    <label class="custom-button" id="fileInputLabel" for="fileInput">Select a File</label>
+                                                    <input class="file-input" id="fileInput" type="file" name="file" required />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div id="submitDiv">
+                                                    <label class="custom-button" id="submitLabel" for="submitBtn">Create a Link!</label>
+                                                    <button class="submit-btn" id="submitBtn" type="submit"></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:50%" />
+                            </tr>
+                        </table>
+                    </form>
+
+                    <div id="url"></div>
+                    <button id="copyUrl" class="custom-button">Copy Link</button>
+                    <div id="qrCode"></div>
+                </div>
+            </td>
         </tr>
     </table>
-    <div class="container">
-        <form id="uploadForm" enctype="multipart/form-data">
-            <div>
-                <label for="fileInput">Choose file:</label>
-                <input type="file" id="fileInput" name="file" required />
-                <div id="fileName"></div>
-                <div id="fileSize"></div>
-            </div>
-            <div>
-                <span>Duration (minutes):</span>
-                <label>
-                    <input type="radio" name="duration" value="5" checked required /> 5
-                </label>
-                <label>
-                    <input type="radio" name="duration" value="10" required /> 10
-                </label>
-                <label>
-                    <input type="radio" name="duration" value="15" required /> 15
-                </label>
-                <label>
-                    <input type="radio" name="duration" value="20" required /> 20
-                </label>
-            </div>
-            <div>
-                <button id="submitBtn" type="submit">Create File Link</button>
-            </div>
-            <br />
-            <div id="progressContainer">
-                <div id="progressBar"></div>
-            </div>
-        </form>
-        <div id="status"></div>
-        <div id="message"></div>
-        <div id="url"></div>
-        <button id="copyUrl">Copy Link</button>
-        <div id="qrCode"></div>
-    </div>
 
     <script>
         // jQuery
-        $(document).ready(function () {            
+        $(document).ready(function () {
 
             // Reset form function
             function resetForm() {
-                $('#fileName').text('File name:');
-                $('#fileSize').text('File size: 0 MB (max 0 MB)');
-                $('#submitBtn').hide();
+                $('#fileInputLabel').show();
+                $('#submitLabel').hide();
+                $('#fileName').text('-');
+                $('#fileSize').text('0 MB (max 0 MB)');
+                $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
-                $('#status').text(null);
+                $('#status').text('Status');
                 $('#message').text(null);
                 $('#url').hide();
                 $('#url').text(null);
@@ -101,7 +372,7 @@
             // Set maximum file size
             $.get('/Health/maxfilesize', function (data) {
                 maxFileSizeMB = (data.maxFileSize / 1024 / 1024);
-                $('#fileSize').text(`File size: 0 MB (max ${maxFileSizeMB} MB)`);
+                $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
             });
 
             // File selected
@@ -110,38 +381,41 @@
                 resetForm();
 
                 const file = event.target.files[0];
-                if (file) 
+                if (file)
                 {
                     // Set file name
-                    $('#fileName').text(`File name: ${file.name}`)
+                    $('#fileName').text(`${file.name}`)
 
                     // Get selected file size (without uploading)
                     const fileSizeInKB = (file.size / 1024).toFixed(2);
                     const fileSizeInMB = (fileSizeInKB / 1024).toFixed(2);
                     if (fileSizeInMB > 0)
-                        $('#fileSize').text(`File size: ${fileSizeInMB} MB (max ${maxFileSizeMB} MB)`);
+                        $('#fileSize').text(`${fileSizeInMB} MB (max ${maxFileSizeMB} MB)`);
                     else
-                        $('#fileSize').text(`File size: ${fileSizeInKB} KB (max ${maxFileSizeMB} MB)`);
+                        $('#fileSize').text(`${fileSizeInKB} KB (max ${maxFileSizeMB} MB)`);
 
                     if (maxFileSizeMB == 0 || file.size == 0)
                         $('#message').text('File is empty');
                     else
-                    {                        
+                    {
                         if (fileSizeInMB <= maxFileSizeMB)
-                            $('#submitBtn').show(); // show Submit button
+                            $('#submitLabel').show(); // show Submit button
                         else
                             $('#message').text('File is too big');
                     }
-                } 
+                }
                 else
                 {
                     $('#fileName').text(null);
-                    $('#fileSize').text(`File size: 0 MB (max ${maxFileSizeMB} MB)`);
+                    $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
                 }
             });
 
             $('#uploadForm').on('submit', function (e) {
-                e.preventDefault(); // prevent defualt form submit 
+                e.preventDefault(); // prevent defualt form submit
+
+                $('#fileInputLabel').hide();
+                $('#submitLabel').hide();
 
                 var formData = new FormData(this);
                 var xhr = new XMLHttpRequest(); // AJAX-request
@@ -177,10 +451,14 @@
                     else
                     {
                         $('#progressContainer').hide();
-                        $('#status').text('Upload error.');
+                        $('#status').css('background', 'red');
+                        $('#status').text('Upload error!');
                         var response = JSON.parse(xhr.responseText);
                         if (response.message)
+                        {
+                            $('#message').css('color', 'red');
                             $('#message').text(response.message);
+                        }
                     }
                 };
 

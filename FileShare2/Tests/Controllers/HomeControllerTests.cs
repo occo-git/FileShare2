@@ -117,7 +117,7 @@ namespace FileShare.Tests.Controllers
                 if (result.Value != null)
                 {
                     dynamic val = result.Value;
-                    Assert.That(val.Message, Is.EqualTo("File successfully uploaded: "));
+                    Assert.That(val.Message, Is.EqualTo("File successfully uploaded!"));
                     Assert.That(val.Url, Is.EqualTo(_fileUrl));
                 }
             }

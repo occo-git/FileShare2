@@ -76,7 +76,7 @@ namespace FileShare.Controllers.Home
                         model.ApplyUrl(url);                       
                         await _fileShareService.SaveFileMetadataAsync(model); // Save metadata to DynamoDB
 
-                        var message = "File successfully uploaded: ";
+                        var message = "File successfully uploaded!";
                         return Ok(new FileUploadResult(message, model.Url, model.QRCodeSvg));
                     }
                 }
