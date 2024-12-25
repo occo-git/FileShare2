@@ -119,6 +119,20 @@
         // jQuery
         $(document).ready(function () {
 
+            function adjustLayout() {
+                if ($(window).width() < $(window).height()) {
+                    $('#mobile-view').show();
+                    $('#desktop-view').hide();
+                } else {
+                    $('#desktop-view').show();
+                    $('#mobile-view').hide();
+                }
+            }
+            
+            // adjust layout to window size
+            //adjustLayout();
+            //$(window).resize(adjustLayout);
+
             // Reset form function
             function resetForm() {
                 $('#fileInputLabel').show();

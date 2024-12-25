@@ -176,6 +176,21 @@ input[type="radio"] {
             transform: translate(-50%, -50%); /* Центрируем */
         }
 
+#progressContainer {
+    width: 100%;
+    margin: 4px 0px;
+    background-color: var(--control-color-1);
+    border-radius: 12px;
+    overflow: hidden;
+    display: none; /* Скрыть прогресс-бар по умолчанию */
+}
+
+#progressBar {
+    height: 24px;
+    background-color: var(--control-color-3);
+    width: 0%; /* Начальная ширина прогресс-бара */
+}
+
 #spinner {
     border: 8px solid var(--control-color-1); /* фон */
     border-top: 8px solid var(--control-color-3); /* Цвет спиннера */
@@ -194,21 +209,6 @@ input[type="radio"] {
     100% {
         transform: rotate(360deg);
     }
-}
-
-#progressContainer {
-    width: 100%;
-    margin: 4px 0px;
-    background-color: var(--control-color-1);
-    border-radius: 12px;
-    overflow: hidden;
-    display: none; /* Скрыть прогресс-бар по умолчанию */
-}
-
-#progressBar {
-    height: 24px;
-    background-color: var(--control-color-3);
-    width: 0%; /* Начальная ширина прогресс-бара */
 }
 
 #serverProcessing {
