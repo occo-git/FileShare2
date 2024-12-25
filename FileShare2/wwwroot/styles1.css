@@ -47,6 +47,26 @@ td {
     width: 100%;
 }
 
+.drop-area {
+    /*background: var(--td-color);*/
+    color: white;
+    padding: 16px 32px; /* Отступы */
+    margin: 16px 0px;
+    width: 300px;
+    text-align: center;
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Делает элемент строчным блоком */
+    font-family: Calibri;
+    font-size: 18px;
+    cursor: pointer; /* Курсор при наведении */
+    border: 2px dashed var(--control-color-3);
+    border-radius: 12px; /* Закругление углов */
+}
+
+    .drop-area.hover {
+        border-color: white;
+    }
+
 .file-input {
     display: none; /* Скрываем стандартный input */
 }
@@ -84,7 +104,7 @@ td {
     /* border: 4px solid #DDEEDD; */
     border: none;
     border-radius: 12px; /* Закругление углов */
-    transition: background 5s; /* Плавный переход */
+    transition: background 1s; /* Плавный переход */
 }
 
     .custom-button:hover {

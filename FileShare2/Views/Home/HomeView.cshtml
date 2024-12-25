@@ -85,6 +85,9 @@
                                                 <div id="fileInputDiv">
                                                     <label class="custom-button" id="fileInputLabel" for="fileInput">Select a File</label>
                                                     <input class="file-input" id="fileInput" type="file" name="file" required />
+                                                    <div class="drop-area" id="dropArea">
+                                                        Drag and drop a File here
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td>
@@ -116,9 +119,17 @@
     </table>
 
     <script>
+        const _yellow = '#F0BB00';
+        const _red = '#FF0000';
+        const _text_color = '#4CAF50';
+        const _td_color = '#75d079';
+
         // jQuery
         $(document).ready(function () {
 
+            //----------------------
+            // Adjust layout to window size
+            //----------------------
             function adjustLayout() {
                 if ($(window).width() < $(window).height()) {
                     $('#mobile-view').show();
@@ -128,20 +139,43 @@
                     $('#mobile-view').hide();
                 }
             }
-            
-            // adjust layout to window size
             //adjustLayout();
             //$(window).resize(adjustLayout);
 
-            // Reset form function
+            //----------------------
+            // Drag and Drop
+            //----------------------
+            const dropArea = $('#dropArea');
+            const fileInput = $('#fileInput');
+            const events = ['dragenter', 'dragover', 'dragleave', 'drop'];
+            events.forEach(eventName => {
+                dropArea.on(eventName, function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+            dropArea.on('dragenter dragover', () => dropArea.addClass('hover'));
+            dropArea.on('dragleave drop', () => dropArea.removeClass('hover'));
+            dropArea.on('click', () => fileInput.click());
+            dropArea.on('drop', function (e) {
+                const files = e.originalEvent.dataTransfer.files;
+                handleFile(files[0]);
+            });
+
+            //----------------------
+            // Reset form 
+            //----------------------
             function resetForm() {
                 $('#fileInputLabel').show();
+                $('#dropArea').show();
                 $('#submitLabel').hide();
                 $('#fileName').text('-');
                 $('#fileSize').text('0 MB (max 0 MB)');
                 $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
+                $('#status').css('background', _td_color);
                 $('#status').text('Status');
+                $('#message').css('color', _text_color);
                 $('#message').show();
                 $('#message').text('-');
                 $('#serverProcessing').hide();
@@ -150,10 +184,12 @@
                 $('#copyUrl').hide();
                 $('#qrCode').text(null);
             }
-
             $('#fileInput').val(null); // reset selected file
             resetForm();
 
+            //----------------------
+            // Apply settings
+            //----------------------
             let maxFileSizeMB = 0;
             // Set image tag (app version)
             $.get('/Health/imagetag', function (data) {
@@ -165,12 +201,16 @@
                 $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
             });
 
+            //----------------------
             // File selected
+            //----------------------
             $('#fileInput').on('change', function(event) {
-
-                resetForm();
-
                 const file = event.target.files[0];
+                handleFile(file);
+            });
+
+            function handleFile(file) {
+                resetForm();
                 if (file)
                 {
                     // Set file name
@@ -186,8 +226,10 @@
 
                     if (maxFileSizeMB == 0 || file.size == 0)
                     {
+                        $('#status').css('background', _yellow);
                         $('#message').show();
-                        $('#message').text('File is empty');
+                        $('#message').css('color', _yellow);
+                        $('#message').text('File is empty!');
                     }
                     else
                     {
@@ -195,8 +237,10 @@
                             $('#submitLabel').show(); // show Submit button
                         else
                         {
+                            $('#status').css('background', _yellow);
                             $('#message').show();
-                            $('#message').text('File is too big');
+                            $('#message').css('color', _yellow);
+                            $('#message').text('File is too big!');
                         }
                     }
                 }
@@ -205,12 +249,16 @@
                     $('#fileName').text('-');
                     $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
                 }
-            });
+            }
 
+            //----------------------
+            // Submit
+            //----------------------
             $('#uploadForm').on('submit', function (e) {
                 e.preventDefault(); // prevent defualt form submit
 
                 $('#fileInputLabel').hide();
+                $('#dropArea').hide();
                 $('#submitLabel').hide();
                 $('#message').hide();
 
@@ -235,7 +283,7 @@
                     {
                         $('#progressContainer').hide();
                         $('#serverProcessing').hide();
-                        $('#status').text('Upload completed!');
+                        $('#status').text('Status');
 
                         // get Message, URL, QR-code from the response
                         var response = JSON.parse(xhr.responseText);
@@ -250,19 +298,19 @@
                             $('#copyUrl').show();
                         }
                         if (response.qrCode)
-                            $('#qrCode').html(response.qrCode);                            
+                            $('#qrCode').html(response.qrCode);
                     }
                     else
                     {
                         $('#progressContainer').hide();
                         $('#serverProcessing').hide();
-                        $('#status').css('background', 'red');
+                        $('#status').css('background', _red);
                         $('#status').text('Upload error!');
                         var response = JSON.parse(xhr.responseText);
                         if (response.message)
                         {
                             $('#message').show();
-                            $('#message').css('color', 'red');
+                            $('#message').css('color', _red);
                             $('#message').text(response.message);
                         }
                     }
@@ -274,7 +322,9 @@
                 xhr.send(formData);
             });
 
-            // copy link url in buffer
+            //----------------------
+            // Copy link url in buffer
+            //----------------------
             $('#copyUrl').on('click', function () {
                 const urlText = $('#url').text();
                 if (urlText) {
