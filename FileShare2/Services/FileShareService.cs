@@ -87,6 +87,8 @@ namespace FileShare.Services
                     await _transferUtility.UploadAsync(tuRequest);
                     log.Info($"Upload file to S3: upload OK [{model}]");
 
+                    //throw new Exception("test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message test error message ");
+
                     var url = GeneratePreSignedURL(model);
                     return url;
                 }

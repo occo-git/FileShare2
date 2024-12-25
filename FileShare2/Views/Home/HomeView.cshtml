@@ -5,240 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>Share File</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles1.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
-
-        body {
-            justify-content: center; /* Центрирование по горизонтали */
-            background-color: #002200; /*#DDEEDD;*/
-        }
-
-        .main-table {
-            /* border: 1px solid #333; */
-            width: 100%;
-        }
-
-        td {
-            vertical-align: top;
-            text-align: center;
-            justify-content: center;
-            /* border: 1px solid #DDD; */
-        }
-
-        .main-title {
-            vertical-align: top;
-            color: white;
-            font-family: Calibri;
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .main-version {
-            color: white;
-            font-family: Calibri;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .form-table {
-            /* border: 1px solid #333; */
-            width: 100%;
-        }
-
-        .file-input {
-            display: none; /* Скрываем стандартный input */
-        }
-
-        .submit-btn {
-            display: none; /* Скрываем стандартный input */
-        }
-
-        .custom-label {
-            color: white; /* Цвет текста */
-            margin: 16px 0px;
-            padding: 16px 32px; /* Отступы */
-            width: 300px;
-            text-align: center; /* Выравнивание текста */
-            text-decoration: none; /* Убираем подчеркивание */
-            display: inline-block; /* Делает элемент строчным блоком */
-            font-family: Calibri;
-            font-size: 32px; /* Размер шрифта */
-            border: 1px solid white;
-            border-radius: 12px; /* Закругление углов */
-        }
-
-        .custom-button {
-            background: linear-gradient(60deg, #388E3C, #4CAF50);
-            color: white; /* Цвет текста */
-            padding: 16px 32px; /* Отступы */
-            margin: 16px 0px;
-            width: 300px;
-            text-align: center; /* Выравнивание текста */
-            text-decoration: none; /* Убираем подчеркивание */
-            display: inline-block; /* Делает элемент строчным блоком */
-            font-family: Calibri;
-            font-size: 24px; /* Размер шрифта */
-            cursor: pointer; /* Курсор при наведении */
-            /* border: 4px solid #DDEEDD; */
-            border: none;
-            border-radius: 12px; /* Закругление углов */
-            transition: background 5s; /* Плавный переход */
-        }
-
-            .custom-button:hover {
-                background: linear-gradient(60deg, #2E7D32, #388E3C);
-            }
-
-
-        .form-left-td {
-            text-align: right;
-            border-radius: 12px; /* Закругление углов */
-            min-width: 300px;
-            width: 50%;
-        }
-
-        .form-right-td {
-            text-align: left;
-            border-radius: 12px; /* Закругление углов */
-            min-width: 300px;
-            width: 50%;
-        }
-
-        .file-name-td {
-            vertical-align: top;
-            text-align: center;
-            color: white;
-            font-family: Calibri;
-            font-size: 18px;
-            background: #75d079;
-            padding: 4px 4px; /* Отступы */
-            border-radius: 12px; /* Закругление углов */
-            width: 300px;
-        }
-
-        .file-size-td {
-            vertical-align: top;
-            text-align: center;
-            color: white;
-            font-family: Calibri;
-            font-size: 18px;
-            background: #75d079;
-            padding: 4px 4px; /* Отступы */
-            border-radius: 12px; /* Закругление углов */
-            width: 300px;
-        }
-
-        .duration-td {
-            vertical-align: top;
-            text-align: center;
-            color: white;
-            font-family: Calibri;
-            font-size: 18px;
-            background: #75d079;
-            padding: 4px 4px; /* Отступы */
-            border-radius: 12px; /* Закругление углов */
-            width: 300px;
-        }
-
-        .status-td {
-            vertical-align: top;
-            text-align: center;
-            color: white;
-            font-family: Calibri;
-            font-size: 18px;
-            background: #75d079;
-            padding: 4px 4px; /* Отступы */
-            border-radius: 12px; /* Закругление углов */
-            width: 300px;
-        }
-
-        #fileName {
-            color: #4CAF50;
-            font-family: Calibri;
-            font-size: 14px;
-            padding: 10px;
-            text-align: center;
-            max-width: 350px; /* Устанавливаем максимальную ширину */
-            overflow: hidden; /* Скрываем переполнение */
-            white-space: nowrap; /* Запрещаем перенос строк */
-            text-overflow: ellipsis; /* Добавляем многоточие */
-        }
-
-        #fileSize {
-            color: #4CAF50;
-            font-family: Calibri;
-            font-size: 14px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .file-duration-min {
-            color: #4CAF50;
-            font-family: Calibri;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        input[type="radio"] {
-            appearance: none; /* Убираем стандартный стиль */
-            width: 20px; /* Ширина */
-            height: 20px; /* Высота */
-            border: 2px solid #4CAF50; /* Цвет границы */
-            border-radius: 50%; /* Круглая форма */
-            outline: none; /* Убираем обводку */
-            cursor: pointer; /* Курсор при наведении */
-            position: relative; /* Для позиционирования псевдоэлемента */
-            transition: border-color 5s; /* Плавный переход для цвета границы */
-        }
-
-            input[type="radio"]:checked {
-                accent-color: #4CAF50; /* Цвет для выбранной радиокнопки */
-                background-color: #4CAF50; /* Цвет при выборе */
-                border: 2px solid #4CAF50; /* Цвет границы при выборе */
-            }
-
-                input[type="radio"]:checked::after {
-                    content: ''; /* Псевдоэлемент для внутреннего круга */
-                    width: 12px; /* Ширина внутреннего круга */
-                    height: 12px; /* Высота внутреннего круга */
-                    background-color: white; /* Цвет внутреннего круга */
-                    border-radius: 50%; /* Круглая форма */
-                    position: absolute; /* Позиционирование относительно радио-кнопки */
-                    top: 50%; /* Центрируем по вертикали */
-                    left: 50%; /* Центрируем по горизонтали */
-                    transform: translate(-50%, -50%); /* Центрируем */
-                }
-
-        #progressContainer {
-            width: 100%;
-            margin: 4px 0px;
-            background-color: white;
-            border-radius: 12px;
-            overflow: hidden;
-            display: none; /* Скрыть прогресс-бар по умолчанию */
-        }
-
-        #progressBar {
-            height: 24px;
-            background-color: #4CAF50;
-            width: 0%; /* Начальная ширина прогресс-бара */
-        }
-
-        #status {
-            margin-top: 10px;
-        }
-
-        #message {
-            color: #4CAF50;
-            font-family: Calibri;
-            font-size: 14px;
-            padding: 10px;
-            text-align: center;
-        }
-
-    </style>
 </head>
 <body>
     <table class="main-table">
@@ -271,8 +39,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="file-name-td">Name</td>
-                                            <td class="duration-td">Duration</td>
+                                            <td class="title-td">Name</td>
+                                            <td class="title-td">Duration</td>
                                         </tr>
                                         <tr>
                                             <td><div id="fileName"></div></td>
@@ -300,8 +68,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="file-size-td">Size</td>
-                                            <td class="status-td" id="status"></td>
+                                            <td class="title-td">Size</td>
+                                            <td class="title-td" id="status">Status</td>
                                         </tr>
                                         <tr>
                                             <td><div id="fileSize"></div></td>
@@ -335,6 +103,12 @@
 
                     <div id="url"></div>
                     <button id="copyUrl" class="custom-button">Copy Link</button>
+
+                    <div id="serverProcessing">
+                        <div id="spinner"></div>
+                        <div id="server-message">Server processing ...</div>
+                    </div>
+
                     <div id="qrCode"></div>
                 </div>
             </td>
@@ -354,7 +128,9 @@
                 $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
                 $('#status').text('Status');
-                $('#message').text(null);
+                $('#message').show();
+                $('#message').text('-');
+                $('#serverProcessing').hide();
                 $('#url').hide();
                 $('#url').text(null);
                 $('#copyUrl').hide();
@@ -395,18 +171,24 @@
                         $('#fileSize').text(`${fileSizeInKB} KB (max ${maxFileSizeMB} MB)`);
 
                     if (maxFileSizeMB == 0 || file.size == 0)
+                    {
+                        $('#message').show();
                         $('#message').text('File is empty');
+                    }
                     else
                     {
                         if (fileSizeInMB <= maxFileSizeMB)
                             $('#submitLabel').show(); // show Submit button
                         else
+                        {
+                            $('#message').show();
                             $('#message').text('File is too big');
+                        }
                     }
                 }
                 else
                 {
-                    $('#fileName').text(null);
+                    $('#fileName').text('-');
                     $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
                 }
             });
@@ -416,6 +198,7 @@
 
                 $('#fileInputLabel').hide();
                 $('#submitLabel').hide();
+                $('#message').hide();
 
                 var formData = new FormData(this);
                 var xhr = new XMLHttpRequest(); // AJAX-request
@@ -427,6 +210,8 @@
                         $('#progressContainer').show();
                         $('#progressBar').css('width', percentage + '%');
                         $('#status').text('Upload...' + percentage + '%');
+                        if (percentage == 100)
+                            $('#serverProcessing').show();
                     }
                 });
 
@@ -435,27 +220,34 @@
                     if (xhr.status === 200)
                     {
                         $('#progressContainer').hide();
+                        $('#serverProcessing').hide();
                         $('#status').text('Upload completed!');
+
                         // get Message, URL, QR-code from the response
                         var response = JSON.parse(xhr.responseText);
                         if (response.message)
+                        {
+                            $('#message').show();
                             $('#message').text(response.message);
+                        }
                         if (response.url)
                         {
                             $('#url').text(response.url);
                             $('#copyUrl').show();
                         }
                         if (response.qrCode)
-                            $('#qrCode').html(response.qrCode);
+                            $('#qrCode').html(response.qrCode);                            
                     }
                     else
                     {
                         $('#progressContainer').hide();
+                        $('#serverProcessing').hide();
                         $('#status').css('background', 'red');
                         $('#status').text('Upload error!');
                         var response = JSON.parse(xhr.responseText);
                         if (response.message)
                         {
+                            $('#message').show();
                             $('#message').css('color', 'red');
                             $('#message').text(response.message);
                         }
@@ -473,8 +265,10 @@
                 const urlText = $('#url').text();
                 if (urlText) {
                     navigator.clipboard.writeText(urlText).then(function() {
+                        $('#message').show();
                         $('#message').text('Link copied to clipboard!');
                     }, function(err) {
+                        $('#message').show();
                         $('#message').text('Failed to copy link: ' + err);
                     });
                 }

@@ -1,0 +1,216 @@
+﻿
+:root {
+    --back-color: #002200;
+    --control-color-1: #2E7D32;
+    --control-color-2: #388E3C;
+    --control-color-3: #4CAF50;
+    --text-color: #4CAF50;
+    --td-color: #75d079;
+}
+
+body {
+    justify-content: center; /* Центрирование по горизонтали */
+    background-color: var(--back-color);
+}
+
+.main-table {
+    /* border: 1px solid #333; */
+    width: 100%;
+}
+
+td {
+    vertical-align: top;
+    text-align: center;
+    justify-content: center;
+    /* border: 1px solid #DDD; */
+}
+
+.main-title {
+    vertical-align: top;
+    color: white;
+    font-family: Calibri;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.main-version {
+    color: white;
+    font-family: Calibri;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-table {
+    /* border: 1px solid #333; */
+    width: 100%;
+}
+
+.file-input {
+    display: none; /* Скрываем стандартный input */
+}
+
+.submit-btn {
+    display: none; /* Скрываем стандартный input */
+}
+
+.custom-label {
+    color: white; /* Цвет текста */
+    margin: 16px 0px;
+    padding: 16px 32px; /* Отступы */
+    width: 300px;
+    text-align: center; /* Выравнивание текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Делает элемент строчным блоком */
+    font-family: Calibri;
+    font-size: 32px; /* Размер шрифта */
+    border: 1px solid white;
+    border-radius: 12px; /* Закругление углов */
+}
+
+.custom-button {
+    background: linear-gradient(60deg, var(--control-color-2), var(--control-color-3));
+    color: white; /* Цвет текста */
+    padding: 16px 32px; /* Отступы */
+    margin: 16px 0px;
+    width: 300px;
+    text-align: center; /* Выравнивание текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: inline-block; /* Делает элемент строчным блоком */
+    font-family: Calibri;
+    font-size: 24px; /* Размер шрифта */
+    cursor: pointer; /* Курсор при наведении */
+    /* border: 4px solid #DDEEDD; */
+    border: none;
+    border-radius: 12px; /* Закругление углов */
+    transition: background 5s; /* Плавный переход */
+}
+
+    .custom-button:hover {
+        background: linear-gradient(60deg, var(--control-color-1), var(--control-color-2));
+    }
+
+.title-td {
+    vertical-align: top;
+    text-align: center;
+    color: white;
+    font-family: Calibri;
+    font-size: 18px;
+    background: var(--td-color);
+    padding: 4px 4px; /* Отступы */
+    border-radius: 12px; /* Закругление углов */
+    width: 300px;
+}
+
+#fileName {
+    color: var(--text-color);
+    font-family: Calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    max-width: 350px; /* Устанавливаем максимальную ширину */
+    overflow: hidden; /* Скрываем переполнение */
+    white-space: nowrap; /* Запрещаем перенос строк */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+#fileSize {
+    color: var(--text-color);
+    font-family: Calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+
+#message {
+    color: var(--text-color);
+    font-family: Calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+
+#server-message {
+    color: var(--text-color);
+    font-family: Calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+}
+
+.file-duration-min {
+    color: var(--text-color);
+    font-family: Calibri;
+    font-size: 14px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    appearance: none; /* Убираем стандартный стиль */
+    width: 20px; /* Ширина */
+    height: 20px; /* Высота */
+    border: 2px solid var(--control-color-3); /* Цвет границы */
+    border-radius: 50%; /* Круглая форма */
+    outline: none; /* Убираем обводку */
+    cursor: pointer; /* Курсор при наведении */
+    position: relative; /* Для позиционирования псевдоэлемента */
+    transition: border-color 5s; /* Плавный переход для цвета границы */
+}
+
+    input[type="radio"]:checked {
+        accent-color: var(--control-color-3); /* Цвет для выбранной радиокнопки */
+        background-color: var(--control-color-3); /* Цвет при выборе */
+        border: 2px solid var(--control-color-3); /* Цвет границы при выборе */
+    }
+
+        input[type="radio"]:checked::after {
+            content: ''; /* Псевдоэлемент для внутреннего круга */
+            width: 12px; /* Ширина внутреннего круга */
+            height: 12px; /* Высота внутреннего круга */
+            background-color: white; /* Цвет внутреннего круга */
+            border-radius: 50%; /* Круглая форма */
+            position: absolute; /* Позиционирование относительно радио-кнопки */
+            top: 50%; /* Центрируем по вертикали */
+            left: 50%; /* Центрируем по горизонтали */
+            transform: translate(-50%, -50%); /* Центрируем */
+        }
+
+#spinner {
+    border: 8px solid var(--control-color-1); /* фон */
+    border-top: 8px solid var(--control-color-3); /* Цвет спиннера */
+    border-radius: 50%; /* Круглая форма */
+    width: 50px; /* Ширина */
+    height: 50px; /* Высота */
+    display: inline-block;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#progressContainer {
+    width: 100%;
+    margin: 4px 0px;
+    background-color: var(--control-color-1);
+    border-radius: 12px;
+    overflow: hidden;
+    display: none; /* Скрыть прогресс-бар по умолчанию */
+}
+
+#progressBar {
+    height: 24px;
+    background-color: var(--control-color-3);
+    width: 0%; /* Начальная ширина прогресс-бара */
+}
+
+#serverProcessing {
+    margin: 32px;
+}
