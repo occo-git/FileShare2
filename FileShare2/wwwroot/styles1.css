@@ -1,11 +1,13 @@
 ﻿
 :root {
     --back-color: #002200;
+    --caption-color: #FFFFFF; /*#113311;*/
     --control-color-1: #2E7D32;
     --control-color-2: #388E3C;
     --control-color-3: #4CAF50;
     --text-color: #4CAF50;
     --td-color: #75d079;
+    --font: Arial, sans-serif;
 }
 
 body {
@@ -27,22 +29,22 @@ td {
 
 .main-title {
     vertical-align: top;
-    color: white;
-    font-family: Calibri;
-    font-size: 48px;
+    color: var(--caption-color);
+    font-family: var(--font);
+    font-size: 72px;
     font-weight: bold;
     text-align: center;
 }
 
 .main-version {
-    color: white;
-    font-family: Calibri;
-    font-size: 18px;
+    color: var(--caption-color);
+    font-family: var(--font);
+    font-size: 20px;
     font-weight: bold;
     text-align: left;
 }
 
-.form-table {
+.table100 {
     /* border: 1px solid #333; */
     width: 100%;
 }
@@ -50,20 +52,23 @@ td {
 .drop-area {
     /*background: var(--td-color);*/
     color: white;
-    padding: 16px 32px; /* Отступы */
+    padding: 54px 32px; /* Отступы */
     margin: 16px 0px;
     width: 300px;
     text-align: center;
     text-decoration: none; /* Убираем подчеркивание */
     display: inline-block; /* Делает элемент строчным блоком */
-    font-family: Calibri;
-    font-size: 18px;
+    font-family: var(--font);
+    font-size: 20px;
     cursor: pointer; /* Курсор при наведении */
     border: 2px dashed var(--control-color-3);
     border-radius: 12px; /* Закругление углов */
 }
 
     .drop-area.hover {
+        border-color: white;
+    }
+    .drop-area:hover {
         border-color: white;
     }
 
@@ -83,7 +88,7 @@ td {
     text-align: center; /* Выравнивание текста */
     text-decoration: none; /* Убираем подчеркивание */
     display: inline-block; /* Делает элемент строчным блоком */
-    font-family: Calibri;
+    font-family: var(--font);
     font-size: 32px; /* Размер шрифта */
     border: 1px solid white;
     border-radius: 12px; /* Закругление углов */
@@ -92,41 +97,52 @@ td {
 .custom-button {
     background: linear-gradient(60deg, var(--control-color-2), var(--control-color-3));
     color: white; /* Цвет текста */
-    padding: 16px 32px; /* Отступы */
+    padding: 32px 32px;
     margin: 16px 0px;
     width: 300px;
-    text-align: center; /* Выравнивание текста */
+    text-align: center;
     text-decoration: none; /* Убираем подчеркивание */
     display: inline-block; /* Делает элемент строчным блоком */
-    font-family: Calibri;
-    font-size: 24px; /* Размер шрифта */
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: bold;
     cursor: pointer; /* Курсор при наведении */
     /* border: 4px solid #DDEEDD; */
     border: none;
-    border-radius: 12px; /* Закругление углов */
-    transition: background 1s; /* Плавный переход */
+    border-radius: 24px;
+    transition: background .5s ease;
 }
 
     .custom-button:hover {
-        background: linear-gradient(60deg, var(--control-color-1), var(--control-color-2));
+        transform: scale(1.025);
     }
+
+    .custom-button:active {
+        background: linear-gradient(60deg, var(--control-color-1), var(--control-color-2));
+        transform: scale(0.975);
+    }
+
+
+.pad10 {
+    padding: 10px;
+}
 
 .title-td {
     vertical-align: top;
     text-align: center;
     color: white;
-    font-family: Calibri;
-    font-size: 18px;
+    font-family: var(--font);
+    font-size: 24px;
     background: var(--td-color);
-    padding: 4px 4px; /* Отступы */
-    border-radius: 12px; /* Закругление углов */
+    padding: 10px;
+    border-radius: 12px;
     width: 300px;
 }
 
 #fileName {
     color: var(--text-color);
-    font-family: Calibri;
-    font-size: 14px;
+    font-family: var(--font);
+    font-size: 20px;
     padding: 10px;
     text-align: center;
     max-width: 350px; /* Устанавливаем максимальную ширину */
@@ -137,39 +153,39 @@ td {
 
 #fileSize {
     color: var(--text-color);
-    font-family: Calibri;
-    font-size: 14px;
+    font-family: var(--font);
+    font-size: 20px;
     padding: 10px;
     text-align: center;
 }
 
 #message {
     color: var(--text-color);
-    font-family: Calibri;
-    font-size: 14px;
+    font-family: var(--font);
+    font-size: 20px;
     padding: 10px;
     text-align: center;
 }
 
 #server-message {
     color: var(--text-color);
-    font-family: Calibri;
-    font-size: 14px;
+    font-family: var(--font);
+    font-size: 20px;
     padding: 10px;
     text-align: center;
 }
 
 .file-duration-min {
     color: var(--text-color);
-    font-family: Calibri;
-    font-size: 14px;
+    font-family: var(--font);
+    font-size: 20px;
     text-align: center;
 }
 
 input[type="radio"] {
     appearance: none; /* Убираем стандартный стиль */
-    width: 20px; /* Ширина */
-    height: 20px; /* Высота */
+    width: 20px;
+    height: 20px; 
     border: 2px solid var(--control-color-3); /* Цвет границы */
     border-radius: 50%; /* Круглая форма */
     outline: none; /* Убираем обводку */
@@ -197,12 +213,12 @@ input[type="radio"] {
         }
 
 #progressContainer {
+    display: none; /* Скрыть прогресс-бар по умолчанию */
     width: 100%;
     margin: 4px 0px;
     background-color: var(--control-color-1);
     border-radius: 12px;
     overflow: hidden;
-    display: none; /* Скрыть прогресс-бар по умолчанию */
 }
 
 #progressBar {
@@ -215,8 +231,8 @@ input[type="radio"] {
     border: 8px solid var(--control-color-1); /* фон */
     border-top: 8px solid var(--control-color-3); /* Цвет спиннера */
     border-radius: 50%; /* Круглая форма */
-    width: 50px; /* Ширина */
-    height: 50px; /* Высота */
+    width: 50px;
+    height: 50px; 
     display: inline-block;
     animation: spin 2s linear infinite;
 }
