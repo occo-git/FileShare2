@@ -169,7 +169,7 @@
                 $('#fileInputLabel').show();
                 $('#dropArea').show();
                 $('#submitLabel').hide();
-                $('#fileName').text('-');
+                $('#fileName').text('~');
                 $('#fileSize').text('0 MB (max 0 MB)');
                 $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
@@ -177,7 +177,7 @@
                 $('#status').text('Status');
                 $('#message').css('color', _text_color);
                 $('#message').show();
-                $('#message').text('-');
+                $('#message').text('~');
                 $('#serverProcessing').hide();
                 $('#url').hide();
                 $('#url').text(null);
@@ -246,7 +246,7 @@
                 }
                 else
                 {
-                    $('#fileName').text('-');
+                    $('#fileName').text('~');
                     $('#fileSize').text(`0 MB (max ${maxFileSizeMB} MB)`);
                 }
             }
