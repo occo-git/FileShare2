@@ -119,13 +119,17 @@
     </table>
 
     <script>
-        const _yellow = '#F0BB00';
-        const _red = '#FF0000';
-        const _text_color = '#4CAF50';
-        const _td_color = '#75d079';
 
         // jQuery
         $(document).ready(function () {
+
+            const rootStyles = getComputedStyle(document.documentElement);
+            const tdColor = rootStyles.getPropertyValue('--td-color');
+            const warningColor = rootStyles.getPropertyValue('--warning-color');
+            const errorColor = rootStyles.getPropertyValue('--error-color');
+            const textColor = rootStyles.getPropertyValue('--text-color');
+            const qrColor = rootStyles.getPropertyValue('--qr-color');
+            const qrBackColor = rootStyles.getPropertyValue('--qr-back-color');
 
             //----------------------
             // Adjust layout to window size
@@ -163,7 +167,7 @@
             });
 
             //----------------------
-            // Reset form 
+            // Reset form
             //----------------------
             function resetForm() {
                 $('#fileInputLabel').show();
@@ -173,9 +177,9 @@
                 $('#fileSize').text('0 MB (max 0 MB)');
                 $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
-                $('#status').css('background', _td_color);
+                $('#status').css('background', tdColor);
                 $('#status').text('Status');
-                $('#message').css('color', _text_color);
+                $('#message').css('color', textColor);
                 $('#message').show();
                 $('#message').text('~');
                 $('#serverProcessing').hide();
@@ -186,6 +190,32 @@
             }
             $('#fileInput').val(null); // reset selected file
             resetForm();
+
+            //----------------------
+            // SVG
+            //----------------------
+            function modifySVG(qrCode) {
+                return qrCode
+                    .replace(/#FFFFFF/g, qrBackColor)
+                    .replace(/#000000/g, qrColor);
+            }
+            function addRoundedCornersToRects(svg) {
+                let firstRectProcessed = false; // Счетчик для отслеживания первого элемента
+
+                return svg.replace(/<rect([^>]*?)\/?>/g, (match, attrs) => {
+                    if (!firstRectProcessed) {
+                        // Для первого rect добавляем rx="12" и ry="12"
+                        firstRectProcessed = true; // Помечаем, что первый элемент уже обработан
+                        return `<rect${attrs} rx="12" ry="12"></rect>`;
+                    } else {
+                        // Для остальных rect добавляем rx="1" и ry="1", если их нет
+                        if (!attrs.includes('rx=') && !attrs.includes('ry=')) {
+                            return `<rect${attrs} rx="2" ry="2"></rect>`;
+                        }
+                    }
+                    return match; // Если атрибуты уже есть, возвращаем оригинальный элемент
+                });
+            }
 
             //----------------------
             // Apply settings
@@ -226,9 +256,9 @@
 
                     if (maxFileSizeMB == 0 || file.size == 0)
                     {
-                        $('#status').css('background', _yellow);
+                        $('#status').css('background', warningColor);
                         $('#message').show();
-                        $('#message').css('color', _yellow);
+                        $('#message').css('color', warningColor);
                         $('#message').text('File is empty!');
                     }
                     else
@@ -237,9 +267,9 @@
                             $('#submitLabel').show(); // show Submit button
                         else
                         {
-                            $('#status').css('background', _yellow);
+                            $('#status').css('background', warningColor);
                             $('#message').show();
-                            $('#message').css('color', _yellow);
+                            $('#message').css('color', warningColor);
                             $('#message').text('File is too big!');
                         }
                     }
@@ -298,19 +328,22 @@
                             $('#copyUrl').show();
                         }
                         if (response.qrCode)
-                            $('#qrCode').html(response.qrCode);
+                        {
+                            let qrCode = addRoundedCornersToRects(response.qrCode);
+                            $('#qrCode').html(qrCode);
+                        }
                     }
                     else
                     {
                         $('#progressContainer').hide();
                         $('#serverProcessing').hide();
-                        $('#status').css('background', _red);
+                        $('#status').css('background', errorColor);
                         $('#status').text('Upload error!');
                         var response = JSON.parse(xhr.responseText);
                         if (response.message)
                         {
                             $('#message').show();
-                            $('#message').css('color', _red);
+                            $('#message').css('color', errorColor);
                             $('#message').text(response.message);
                         }
                     }
@@ -337,6 +370,8 @@
                     });
                 }
             });
+
+
         });
     </script>
 

@@ -6,8 +6,12 @@
     --control-color-2: #388E3C;
     --control-color-3: #4CAF50;
     --text-color: #4CAF50;
-    --td-color: #75d079;
+    --td-color: #002B00; /* #75d079;*/
     --font: Arial, sans-serif;
+    --warning-color: #F0BB00;
+    --error-color: #FF0000;
+    --qr-color: #002200;
+    --qr-back-color: #FFFFFF;
 }
 
 body {
