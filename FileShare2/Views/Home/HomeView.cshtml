@@ -301,7 +301,7 @@
                         var percentage = Math.floor((event.loaded / event.total) * 100);
                         $('#progressContainer').show();
                         $('#progressBar').css('width', percentage + '%');
-                        $('#status').text('Upload...' + percentage + '%');
+                        $('#status').text('Uploading... ' + percentage + '%');
                         if (percentage == 100)
                             $('#serverProcessing').show();
                     }
