@@ -17,10 +17,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include=".dockerignore" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AWS.Logger.SeriLog" Version="3.4.3" />
 		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.404" />
 		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
@@ -55,6 +51,10 @@
 	  <Content Update="wwwroot\styles1.css">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="..\.dockerignore" />
 	</ItemGroup>
 
 </Project>
