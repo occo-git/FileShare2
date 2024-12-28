@@ -1,6 +1,4 @@
-﻿bin/
-obj/
-*.user
+﻿*.user
 *.suo
 *.log
 **/.classpath

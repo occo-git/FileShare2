@@ -44,11 +44,13 @@ namespace FileShare
             #endregion
 
             #region Add services to the container
-            builder.Services.AddScoped<IFileShareService, FileShareService>(); // Регистрирует сервис FileShare в контейнер зависимостей          
+            builder.Services.AddScoped<IFileShareService, FileShareService>(); // Регистрирует сервис FileShare в контейнер зависимостей 
+            builder.Services.AddSingleton<SpeedLinkService>(); // short url service       
             builder.Services.AddControllersWithViews(); // Добавляет поддержку контроллеров MVC с представлениями            
             builder.Services.AddControllers(); // Добавляет поддержку контроллеров API            
             builder.Services.AddEndpointsApiExplorer(); // Необходим для автоматического обнаружения конечных точек API            
             builder.Services.AddSwaggerGen(); // Добавляет поддержку Swagger для документирования вашего API
+            //builder.Services.AddOpenApi(); // Swagger doc gen https://aka.ms/aspnet/openapi
             builder.Services.Configure<FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = Configuration.MainConfig.MaxFileSize;
@@ -84,11 +86,12 @@ namespace FileShare
                 // Если приложение находится в режиме разработки, включается Swagger и его интерфейс пользователя для тестирования API
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                ////app.UseSwaggerUI(c =>
-                ////{
-                ////    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                ////    c.RoutePrefix = "swagger";
-                ////});
+                //app.MapOpenApi(); // Swagger doc gen
+                //app.UseSwaggerUI(c =>
+                //{
+                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                //    c.RoutePrefix = "swagger";
+                //});
 
                 app.UseDeveloperExceptionPage(); // Отображает страницу с ошибками в разработке
             }
@@ -105,9 +108,9 @@ namespace FileShare
             
             #region Настройка маршрутов
             app.UseRouting(); // Настраивает маршрутизацию, позволяя определять, как запросы будут сопоставляться с конечными точками (например, контроллерами и действиями в MVC)            
-            app.UseCors("AllowAll"); // Включение CORS 
+            app.UseCors("AllowAll"); // Включение CORS  (after Routing)
             //app.UseAuthentication(); // Проверка аутентификации
-            //app.UseAuthorization();  // Проверка авторизации
+            //app.UseAuthorization();  // Проверка авторизации (after UseAuthentication)
 
             //app.UseEndpoints(e => { });             
             app.MapControllers(); // Настраивает маршруты для контроллеров API
