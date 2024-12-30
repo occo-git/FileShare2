@@ -13,6 +13,7 @@ namespace FileShare.Models
         public string UniqueFileName { get; private set; }
         public long Length { get; private set; }
         public int Duration { get; private set; } // minutes
+        public DateTime ExpireDate { get; private set; }
         public string Url { get; private set; } = string.Empty;
         public string QRCodeSvg { get; private set; } = string.Empty;
 
@@ -26,6 +27,7 @@ namespace FileShare.Models
             UniqueFileName = $"{Name}_{Id}_{Timestamp}{Extension}";
             Length = file.Length;
             Duration = duration;
+            ExpireDate = Date.AddMinutes(duration);
         }
 
         public void ApplyUrl(string url)
@@ -54,6 +56,7 @@ namespace FileShare.Models
             d[nameof(UniqueFileName)] = UniqueFileName;
             d[nameof(Length)] = Length;
             d[nameof(Duration)] = Duration;
+            d[nameof(ExpireDate)] = ExpireDate;
             d[nameof(Url)] = Url;
             return d;
         }
