@@ -175,7 +175,6 @@
                 $('#submitLabel').hide();
                 $('#fileName').text('~');
                 $('#fileSize').text('0 MB (max 0 MB)');
-                $('#duration10').prop('checked', true);
                 $('#progressContainer').hide();
                 $('#status').css('background', tdColor);
                 $('#status').text('Status');
@@ -189,6 +188,7 @@
                 $('#qrCode').text(null);
             }
             $('#fileInput').val(null); // reset selected file
+            $('#duration10').prop('checked', true);
             resetForm();
 
             //----------------------
