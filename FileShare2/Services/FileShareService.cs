@@ -2,10 +2,8 @@
 using Amazon.S3;
 using Amazon.Runtime;
 using Amazon.S3.Transfer;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2;
 using FileShare.Models;
-using System.Drawing;
 using FileShare.Factories;
 
 namespace FileShare.Services

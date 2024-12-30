@@ -8,11 +8,11 @@ public static class Configuration
     public static AwsConfiguration AwsConfig { get; private set; }
     public static BuildConfiguration BuildConfig { get; private set; }
 
+    private const string CONST_MaxFileSize = "MAX_FILE_SIZE";
+    private const string CONST_PixelsPerModule = "PIXELS_PER_MODULE";
     private const string CONST_AccessKey = "AWS_ACCESS_KEY_ID";
     private const string CONST_SecretAccessKey = "AWS_SECRET_ACCESS_KEY";
     private const string CONST_Region = "AWS_REGION";
-    private const string CONST_MaxFileSize = "MAX_FILE_SIZE";
-    private const string CONST_PixelsPerModule = "PIXELS_PER_MODULE";
     private const string CONST_BuildConfigFilePath = @"build\build_config.json";
 
     public static void Init(this IConfiguration configuration)
